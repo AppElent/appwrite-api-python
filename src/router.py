@@ -12,9 +12,6 @@ class Router:
 
     def handle_request(self, path, *args, **kwargs):
         """Dispatch request to the correct route handler."""
-        log = args[1]
-        log(self.routes)
-        log(path, args, kwargs)
         if path in self.routes:
             result = self.routes[path](*args, **kwargs)
             return result
