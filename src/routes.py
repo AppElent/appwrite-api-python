@@ -16,11 +16,12 @@ def scrape_recipe_handler(request):
         return {"status": "error", "message": str(e)}, 500
 
 @router.route("/health-check")
-def health_check_handler(payload):
+def health_check_handler(request):
     return {"status": "success", "message": "Health check passed!"}, 200
 
 @router.route("/")
-def health_check_handler(payload):
+def health_check_handler(request, log):
+    log('Base path reached')
     return {"status": "success", "message": "You reached Python API"}, 200
 
 # You can define more routes and handlers here...
