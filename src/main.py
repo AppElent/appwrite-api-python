@@ -17,10 +17,6 @@ def main(context):
             }, 400)
 
         # Use the router to handle the request
-        context.log('request')
-        context.log(json.dumps(request))
-        context.log('path')
-        context.log(json.dumps(path))
         response, status = router.handle_request(path, request, context.log)
         return context.res.json(response, status)
 
