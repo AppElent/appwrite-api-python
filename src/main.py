@@ -22,18 +22,18 @@ def main(context):
         context.log('Query parameters', json.dumps(request.query))
         response, status = router.handle_request(path, request, context.log)
         context.log(json.dumps(response), status)
-        return context.res.json(response, status)
+        return context.res.json(response, status, {'Access-Control-Allow-Origin': '*'})
 
     except ValueError as e:
         # Handle cases where no route matches
         return context.res.json({
             "status": "error",
             "message": str(e)
-        }, 404)
+        }, 404, {'Access-Control-Allow-Origin': '*'})
     
     except Exception as e:
         # Handle unexpected errors
         return context.res.json({
             "status": "error",
             "message": str(e)
-        }, 500)
+        }, 500, {'Access-Control-Allow-Origin': '*'})
