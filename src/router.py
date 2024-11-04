@@ -1,7 +1,9 @@
 
 class Router:
-    def __init__(self, context):
+    def __init__(self):
         self.routes = {}
+        
+    def set_context(self, context):
         self.context = context
 
     def route(self, path):
@@ -13,7 +15,7 @@ class Router:
 
     def handle_request(self, path, *args, **kwargs):
         """Dispatch request to the correct route handler."""
-        context.log(self.routes)
+        self.context.log(self.routes)
         if path in self.routes:
             return self.routes[path](*args, **kwargs)
         else:

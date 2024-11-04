@@ -1,6 +1,7 @@
 import json
 
 from .router import router
+from .routes import *
 
 
 # 
