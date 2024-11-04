@@ -2,9 +2,9 @@ from .router import router
 from .services.recipe_scraper_service import RecipeScraperService
 
 
-@router.route("/recipe")
+@router.route("/recipes/scrape")
 def scrape_recipe_handler(request, log):
-    url = request.query.url
+    url = request.query.get('url')
     online = False if not request.query.get("online", "true").lower() == "true" else True
     supported_only = False if not request.query.get("supported_only", "true").lower() == "true" else True
     if not url:

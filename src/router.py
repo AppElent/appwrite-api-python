@@ -10,10 +10,10 @@ class Router:
             return func
         return wrapper
 
-    def handle_request(self, path, *args, **kwargs):
+    def handle_request(self, path, request, *args, **kwargs):
         """Dispatch request to the correct route handler."""
         if path in self.routes:
-            result = self.routes[path](*args, **kwargs)
+            result = self.routes[path](request, *args, **kwargs)
             return result
         else:
             raise ValueError(f"No handler for route: {path}")
