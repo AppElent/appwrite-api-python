@@ -19,6 +19,7 @@ def main(context):
 
         # Use the router to handle the request
         response, status = router.handle_request(path, request, context.log)
+        context.log(response, status)
         return context.res.json(response, status)
 
     except ValueError as e:
