@@ -53,8 +53,8 @@ class RecipeScraperService:
 
 # Example usage
 # url = "https://thespiceadventuress.com/2015/12/10/gosht-durbari/"
-# url = "https://www.ah.nl/allerhande/recept/R-R1200481/regenbooglasagne"
-# url = "https://www.leukerecepten.nl/aanrader-gevulde-pastaschelpen-met-gorgonzola-dop-in-spinaziesaus/"
+# # url = "https://www.ah.nl/allerhande/recept/R-R1200481/regenbooglasagne"
+# # url = "https://www.leukerecepten.nl/aanrader-gevulde-pastaschelpen-met-gorgonzola-dop-in-spinaziesaus/"
 # scraper_service = RecipeScraperService(url, online=True, supported_only=False)
 # recipe_details = scraper_service.get_recipe_json()
 # print(recipe_details)
