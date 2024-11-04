@@ -5,8 +5,8 @@ from .services.recipe_scraper_service import RecipeScraperService
 @router.route("/recipes/scrape")
 def scrape_recipe_handler(request, log):
     url = request.query.get('url')
-    online = False if request.query.get("online").lower() == "false" else True
-    supported_only = False if request.query.get("supported_only").lower() == "false" else True
+    online = request.query.get("online", "true").lower() != "false"
+    supported_only = request.query.get("supported_only", "true").lower() != "false"
     if not url:
         return {"status": "error", "message": "No URL provided in payload."}, 400
 
