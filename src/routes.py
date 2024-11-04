@@ -1,3 +1,4 @@
+from .router import router
 from .services.recipe_scraper_service import RecipeScraperService
 
 
