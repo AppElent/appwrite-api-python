@@ -14,8 +14,10 @@ class Router:
         """Dispatch request to the correct route handler."""
         log = args[1]
         log(self.routes)
+        log(path, args, kwargs)
         if path in self.routes:
-            return self.routes[path](*args, **kwargs)
+            result = self.routes[path](*args, **kwargs)
+            return result
         else:
             raise ValueError(f"No handler for route: {path}")
 
