@@ -2,8 +2,8 @@ from .recipe_scraper_service import RecipeScraperService
 
 
 @router.route("/recipe")
-def scrape_recipe_handler(payload):
-    url = payload.get("url")
+def scrape_recipe_handler(request):
+    url = request.query.url
     if not url:
         return {"status": "error", "message": "No URL provided in payload."}, 400
 

@@ -7,8 +7,8 @@ from .router import Router
 def main(context):
     try:
         # Parse the request payload to get the endpoint path and data
-        payload = json.loads(context.req.payload)
-        path = payload.get("path")
+        request = json.loads(context.req)
+        path = context.req.path
         
         if not path:
             return context.res.json({
@@ -17,7 +17,7 @@ def main(context):
             }, 400)
 
         # Use the router to handle the request
-        response, status = router.handle_request(path, payload)
+        response, status = router.handle_request(path, request)
         return context.res.json(response, status)
 
     except ValueError as e:
