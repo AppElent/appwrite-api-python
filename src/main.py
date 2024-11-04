@@ -1,39 +1,33 @@
-from appwrite.client import Client
-from appwrite.services.users import Users
-from appwrite.exception import AppwriteException
-import os
+from router import Router
 
-# This Appwrite function will be executed every time your function is triggered
-def main(context):
-    # You can use the Appwrite SDK to interact with other services
-    # For this example, we're using the Users service
-    client = (
-        Client()
-        .set_endpoint(os.environ["APPWRITE_FUNCTION_API_ENDPOINT"])
-        .set_project(os.environ["APPWRITE_FUNCTION_PROJECT_ID"])
-        .set_key(context.req.headers["x-appwrite-key"])
-    )
-    users = Users(client)
 
+# 
+def main(req, res):
     try:
-        response = users.list()
-        # Log messages and errors to the Appwrite Console
-        # These logs won't be seen by your end users
-        context.log("Total users: " + str(response["total"]))
-    except AppwriteException as err:
-        context.error("Could not list users: " + repr(err))
+        # Parse the request payload to get the endpoint path and data
+        payload = json.loads(req.payload)
+        path = payload.get("path")
+        
+        if not path:
+            return res.json({
+                "status": "error",
+                "message": "No path provided in payload."
+            }, status=400)
 
-    # The req object contains the request data
-    if context.req.path == "/ping":
-        # Use res object to respond with text(), json(), or binary()
-        # Don't forget to return a response!
-        return context.res.text("Pong")
+        # Use the router to handle the request
+        response, status = router.handle_request(path, payload)
+        return res.json(response, status=status)
 
-    return context.res.json(
-        {
-            "motto": "Build like a team of hundreds_",
-            "learn": "https://appwrite.io/docs",
-            "connect": "https://appwrite.io/discord",
-            "getInspired": "https://builtwith.appwrite.io",
-        }
-    )
+    except ValueError as e:
+        # Handle cases where no route matches
+        return res.json({
+            "status": "error",
+            "message": str(e)
+        }, status=404)
+    
+    except Exception as e:
+        # Handle unexpected errors
+        return res.json({
+            "status": "error",
+            "message": str(e)
+        }, status=500)
