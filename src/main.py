@@ -7,7 +7,7 @@ from .router import Router
 def main(context):
     try:
         # Parse the request payload to get the endpoint path and data
-        request = json.loads(context.req)
+        request = context.req
         path = context.req.path
         
         if not path:
